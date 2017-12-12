@@ -17,9 +17,9 @@ public class FragmentActivity extends AppCompatActivity {
         Toolbar mToolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
-        pager = (ViewPager) findViewById(R.id.pager);
+        pager = findViewById(R.id.pager);
         pager.setAdapter(new TabAdapter(getSupportFragmentManager()));
-        tabs = (TabLayout) findViewById(R.id.tabs);
+        tabs = findViewById(R.id.tabs);
         tabs.setTabTextColors(getResources().getColor(R.color.colorPrimary),
                 getResources().getColor(R.color.cian700));
         tabs.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorPrimaryDark));
