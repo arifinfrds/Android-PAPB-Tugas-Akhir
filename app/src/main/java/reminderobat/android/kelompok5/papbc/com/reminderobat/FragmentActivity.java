@@ -22,6 +22,7 @@ public class FragmentActivity extends AppCompatActivity {
         tabs = findViewById(R.id.tabs);
         tabs.setTabTextColors(getResources().getColor(R.color.colorPrimary),
                 getResources().getColor(R.color.cian700));
+
         tabs.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorPrimaryDark));
         tabs.setupWithViewPager(pager);
         tabs.setTabGravity(TabLayout.GRAVITY_FILL);
