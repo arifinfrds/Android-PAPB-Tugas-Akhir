@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#00BCD4</color>
-    <color name="colorPrimaryDark">#673AB7</color>
+    <color name="colorPrimaryDark">@color/cian700</color>
     <color name="colorAccent">#673AB7</color>
     <color name="gray">#E0E7FA</color>
+    
     <color name="cian700">#0097A7</color>
+    <color name="colorDivider">#1f000000</color>
 </resources>

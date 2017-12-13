@@ -1,8 +1,7 @@
-package reminderobat.android.kelompok5.papbc.com.reminderobat;
+package reminderobat.android.kelompok5.papbc.com.reminderobat.ui.daftar;
 
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +11,9 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import reminderobat.android.kelompok5.papbc.com.reminderobat.R;
+import reminderobat.android.kelompok5.papbc.com.reminderobat.model.DaftarModel;
 
 
 /**

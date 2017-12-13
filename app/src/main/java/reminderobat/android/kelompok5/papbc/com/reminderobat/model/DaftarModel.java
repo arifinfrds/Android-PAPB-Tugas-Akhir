@@ -1,4 +1,4 @@
-package reminderobat.android.kelompok5.papbc.com.reminderobat;
+package reminderobat.android.kelompok5.papbc.com.reminderobat.model;
 
 /**
  * Created by Firmanda on 12/12/2017.

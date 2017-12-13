@@ -1,6 +1,7 @@
-package reminderobat.android.kelompok5.papbc.com.reminderobat;
+package reminderobat.android.kelompok5.papbc.com.reminderobat.ui.reminder;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,10 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import reminderobat.android.kelompok5.papbc.com.reminderobat.R;
+import reminderobat.android.kelompok5.papbc.com.reminderobat.model.ReminderModel;
+import reminderobat.android.kelompok5.papbc.com.reminderobat.ui.tambah_reminder.TambahReminderActivity;
 
 
 /**
@@ -35,12 +40,12 @@ public class ReminderFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_reminder, container, false);
         recyclerView = (RecyclerView) v.findViewById(R.id.recycle_view_reminder);
-        adapter = new ReminderRecycleAdapter(reminderModelList, getContext(),getResources());
+        adapter = new ReminderRecycleAdapter(reminderModelList, getContext(), getResources());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(adapter);
-        reminderModelList.add(new ReminderModel("3 x 1 Sehari","09.00"));
-        reminderModelList.add(new ReminderModel("2 x 1 sehari ","19.00"));
+        reminderModelList.add(new ReminderModel("3 x 1 Sehari", "09.00"));
+        reminderModelList.add(new ReminderModel("2 x 1 sehari ", "19.00"));
 
 
         adapter.notifyDataSetChanged();
@@ -51,9 +56,15 @@ public class ReminderFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "Tambah ", Toast.LENGTH_SHORT).show();
+                navigateToTambahReminderActivity();
             }
         });
         return v;
+    }
+
+    private void navigateToTambahReminderActivity() {
+        Intent intent = new Intent(getContext(), TambahReminderActivity.class);
+        getContext().startActivity(intent);
     }
 
 }

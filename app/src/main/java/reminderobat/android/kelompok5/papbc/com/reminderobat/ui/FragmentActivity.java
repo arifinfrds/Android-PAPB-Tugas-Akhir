@@ -1,4 +1,4 @@
-package reminderobat.android.kelompok5.papbc.com.reminderobat;
+package reminderobat.android.kelompok5.papbc.com.reminderobat.ui;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -9,7 +9,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-public class FragmentActivity extends AppCompatActivity  {
+import reminderobat.android.kelompok5.papbc.com.reminderobat.R;
+
+public class FragmentActivity extends AppCompatActivity {
     TabLayout mtabs;
     ViewPager mpager;
     ImageView mSetting;
@@ -19,7 +21,7 @@ public class FragmentActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
 
-        Toolbar mToolbar =  findViewById(R.id.toolbar);
+        Toolbar mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
         mpager = findViewById(R.id.pager);

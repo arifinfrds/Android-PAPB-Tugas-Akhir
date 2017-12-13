@@ -1,9 +1,8 @@
-package reminderobat.android.kelompok5.papbc.com.reminderobat;
+package reminderobat.android.kelompok5.papbc.com.reminderobat.ui.reminder;
 
 import android.content.Context;
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +11,16 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import reminderobat.android.kelompok5.papbc.com.reminderobat.R;
+import reminderobat.android.kelompok5.papbc.com.reminderobat.model.ReminderModel;
+
 /**
  * Created by Firmanda on 12/12/2017.
  */
 
 public class ReminderRecycleAdapter extends RecyclerView.Adapter<ReminderRecycleAdapter.ViewHolder> {
     Context context;
-    List<ReminderModel> ReminderModel;
+    List<reminderobat.android.kelompok5.papbc.com.reminderobat.model.ReminderModel> ReminderModel;
     Resources resources;
 
     public ReminderRecycleAdapter(List<ReminderModel> ReminderModel, Context context, Resources resources) {

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="reminderobat.android.kelompok5.papbc.com.reminderobat.MainActivity">
+    tools:context="reminderobat.android.kelompok5.papbc.com.reminderobat.deprecated.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
