@@ -1,4 +1,4 @@
-package reminderobat.android.kelompok5.papbc.com.reminderobat;
+package reminderobat.android.kelompok5.papbc.com.reminderobat.ui.daftar;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,8 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import reminderobat.android.kelompok5.papbc.com.reminderobat.R;
+import reminderobat.android.kelompok5.papbc.com.reminderobat.model.DaftarModel;
 
 /**
  * Created by Firmanda on 12/12/2017.
@@ -16,7 +18,7 @@ import java.util.List;
 
 public class DaftarRecycleAdapter extends RecyclerView.Adapter<DaftarRecycleAdapter.ViewHolder> {
     Context context;
-    List<DaftarModel> DaftarModel;
+    List<reminderobat.android.kelompok5.papbc.com.reminderobat.model.DaftarModel> DaftarModel;
 
     public DaftarRecycleAdapter(List<DaftarModel> DaftarModel, Context context) {
         this.DaftarModel = DaftarModel;

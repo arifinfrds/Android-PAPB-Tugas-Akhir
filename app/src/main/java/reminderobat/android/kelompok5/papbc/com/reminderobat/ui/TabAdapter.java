@@ -1,8 +1,11 @@
-package reminderobat.android.kelompok5.papbc.com.reminderobat;
+package reminderobat.android.kelompok5.papbc.com.reminderobat.ui;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import reminderobat.android.kelompok5.papbc.com.reminderobat.ui.reminder.ReminderFragment;
+import reminderobat.android.kelompok5.papbc.com.reminderobat.ui.daftar.DaftarFragment;
 
 /**
  * Created by Firmanda on 12/12/2017.
