@@ -24,6 +24,7 @@ import reminderobat.android.kelompok5.papbc.com.reminderobat.ui.tambah_reminder.
  * A simple {@link Fragment} subclass.
  */
 public class ReminderFragment extends Fragment {
+
     private List<ReminderModel> reminderModelList = new ArrayList<>();
     private RecyclerView recyclerView;
     private ReminderRecycleAdapter adapter;
@@ -44,8 +45,8 @@ public class ReminderFragment extends Fragment {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(adapter);
-        reminderModelList.add(new ReminderModel("3 x 1 Sehari", "09.00"));
-        reminderModelList.add(new ReminderModel("2 x 1 sehari ", "19.00"));
+        reminderModelList.add(new ReminderModel("0", "3 x 1 Sehari", "09.00", "Obat 1"));
+        reminderModelList.add(new ReminderModel("1", "2 x 1 sehari ", "19.00", "obat 2"));
 
 
         adapter.notifyDataSetChanged();
