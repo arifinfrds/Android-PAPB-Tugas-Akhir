@@ -17,12 +17,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 import reminderobat.android.kelompok5.papbc.com.reminderobat.R;
+import reminderobat.android.kelompok5.papbc.com.reminderobat.model.ReminderModel;
+import reminderobat.android.kelompok5.papbc.com.reminderobat.ui.tambah_reminder.TambahReminderCallback;
 
 import static reminderobat.android.kelompok5.papbc.com.reminderobat.Const.KEY.KEY_REMINDER_OBAT_SHARED_PREF;
 import static reminderobat.android.kelompok5.papbc.com.reminderobat.Const.SHARED_PREFERENCES.SHARED_PREF_NAME;
+import static reminderobat.android.kelompok5.papbc.com.reminderobat.Const.TAG.TAG_CALLBACK;
 import static reminderobat.android.kelompok5.papbc.com.reminderobat.Const.TAG.TAG_SHARED_PREF_SAVE;
 
-public class FragmentActivity extends AppCompatActivity {
+public class FragmentActivity extends AppCompatActivity implements TambahReminderCallback {
     TabLayout mtabs;
     ViewPager mpager;
     ImageView mSetting;
@@ -75,4 +78,8 @@ public class FragmentActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onButtonTambahClick(ReminderModel reminder) {
+        Log.d(TAG_CALLBACK, "onButtonTambahClick: reminder.getNamaObat(): " + reminder.getNamaObat());
+    }
 }

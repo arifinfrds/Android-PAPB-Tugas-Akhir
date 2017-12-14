@@ -18,6 +18,7 @@ import java.util.List;
 import reminderobat.android.kelompok5.papbc.com.reminderobat.R;
 import reminderobat.android.kelompok5.papbc.com.reminderobat.model.ReminderModel;
 import reminderobat.android.kelompok5.papbc.com.reminderobat.ui.tambah_reminder.TambahReminderActivity;
+import reminderobat.android.kelompok5.papbc.com.reminderobat.util.Number;
 
 
 /**
@@ -45,8 +46,8 @@ public class ReminderFragment extends Fragment {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(adapter);
-        reminderModelList.add(new ReminderModel("0", "3 x 1 Sehari", "09.00", "Obat 1"));
-        reminderModelList.add(new ReminderModel("1", "2 x 1 sehari ", "19.00", "obat 2"));
+        reminderModelList.add(new ReminderModel(Number.getRandomNumberBetween(0, 999999), "3 x 1 Sehari", "09.00", "Obat 1"));
+        reminderModelList.add(new ReminderModel(Number.getRandomNumberBetween(0, 999999), "2 x 1 sehari ", "19.00", "obat 2"));
 
 
         adapter.notifyDataSetChanged();

@@ -24,6 +24,7 @@ public class ReminderNotificationReceiver {
     public void Notification(int id, String keterangan, String jam, String namaobat, Context context) {
         Intent notificationIntent = new Intent(context, MainActivity.class);
         PendingIntent notificationPendingIntent = PendingIntent.getActivity
+
                 (context, id, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder notifyBuilder = new NotificationCompat.Builder(context);
@@ -38,6 +39,7 @@ public class ReminderNotificationReceiver {
                 .setDefaults(NotificationCompat.DEFAULT_ALL);
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
         notificationManager.notify(id, notifyBuilder.build());
     }
 

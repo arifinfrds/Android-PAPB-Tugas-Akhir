@@ -27,11 +27,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import reminderobat.android.kelompok5.papbc.com.reminderobat.R;
 import reminderobat.android.kelompok5.papbc.com.reminderobat.model.ReminderModel;
 import reminderobat.android.kelompok5.papbc.com.reminderobat.util.GSONConverter;
+import reminderobat.android.kelompok5.papbc.com.reminderobat.util.Number;
 
 import static java.security.AccessController.getContext;
 import static reminderobat.android.kelompok5.papbc.com.reminderobat.Const.KEY.KEY_REMINDER_OBAT_SHARED_PREF;
@@ -89,6 +91,7 @@ public class TambahReminderActivity extends AppCompatActivity implements View.On
         mBtnTambah.setOnClickListener(this);
 
         disableKeyboardPopupOnFirst();
+
 
     }
 
@@ -155,8 +158,10 @@ public class TambahReminderActivity extends AppCompatActivity implements View.On
             int selectedId = mRadioGroup.getCheckedRadioButtonId();
             mSelectedRadioButton = findViewById(selectedId);
 
-            String idReminder = getRandomStringId(50);
+            //int idReminder = Number.getRandomNumberBetween(0, 999999);
+            int idReminder = Number.getRandomNumberBetween(0, 999999);
             ReminderModel reminderModel = new ReminderModel(idReminder, deskripsi, mTime, getNamaObat());
+
 
             Log.d(TAG_REMINDER_MODEL, "tambahReminder: reminderModel.getId(): " + reminderModel.getId());
             Log.d(TAG_REMINDER_MODEL, "tambahReminder: reminderModel.getKeterangan(): " + reminderModel.getKeterangan());
@@ -164,9 +169,11 @@ public class TambahReminderActivity extends AppCompatActivity implements View.On
             Log.d(TAG_REMINDER_MODEL, "tambahReminder: reminderModel.getNamaObat(): " + reminderModel.getNamaObat());
 
             // save ke shared pref next branch...
-            writeToSharedPref(reminderModel);
+            // writeToSharedPref(reminderModel);
+
         }
     }
+
 
     private void writeToSharedPref(ReminderModel reminder) {
 
