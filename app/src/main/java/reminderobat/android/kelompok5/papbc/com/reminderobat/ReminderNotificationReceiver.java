@@ -5,10 +5,12 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NotificationCompat;
 
 import reminderobat.android.kelompok5.papbc.com.reminderobat.deprecated.MainActivity;
 import reminderobat.android.kelompok5.papbc.com.reminderobat.model.ReminderModel;
+import reminderobat.android.kelompok5.papbc.com.reminderobat.ui.toturial.ToturialActivity;
 
 /**
  * Created by RizqiAryansa on 12/14/2017.
@@ -22,9 +24,8 @@ public class ReminderNotificationReceiver {
 //    private ReminderModel reminderModel;
 
     public void Notification(int id, String keterangan, String jam, String namaobat, Context context) {
-        Intent notificationIntent = new Intent(context, MainActivity.class);
+        Intent notificationIntent = new Intent(context, ToturialActivity.class);
         PendingIntent notificationPendingIntent = PendingIntent.getActivity
-
                 (context, id, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder notifyBuilder = new NotificationCompat.Builder(context);
