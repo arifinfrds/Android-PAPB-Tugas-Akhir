@@ -28,8 +28,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
 import reminderobat.android.kelompok5.papbc.com.reminderobat.R;
 import reminderobat.android.kelompok5.papbc.com.reminderobat.ReminderNotificationReceiver;
+import reminderobat.android.kelompok5.papbc.com.reminderobat.model.ReminderModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -118,6 +121,8 @@ public class MainActivity extends AppCompatActivity {
         private static Button btn_notif;
         //private static final int NOTIFICATION_ID = 0;
         private NotificationManager mNotifyManager;
+        private ReminderModel reminderModel;
+        private int times = Integer.parseInt(reminderModel.getJam());
 
         public PlaceholderFragment() {
         }
@@ -161,33 +166,13 @@ public class MainActivity extends AppCompatActivity {
 
             AlarmManager reminderAlert = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
 
-            reminderAlert.setRepeating(AlarmManager.RTC_WAKEUP, SystemClock.elapsedRealtime(), 60 * 500, pendingIntent);
+//            Calendar times = Calendar.getInstance();
+//            times.set(Calendar.HOUR_OF_DAY, jam);
 
-            //Sets up the pending intent that is delivered when the notification is clicked
-//            Intent notificationIntent = new Intent(getActivity(), MainActivity.class);
-//            PendingIntent notificationPendingIntent = PendingIntent.getActivity
-//                    (getActivity(), NOTIFICATION_ID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-//
-//            //Builds the notification with all of the parameters
-//            NotificationCompat.Builder notifyBuilder = new NotificationCompat.Builder(getActivity())
-//                    .setContentTitle("Waktunya minum Vitamin")
-//                    .setContentText("09.00 AM")
-//                    .setSubText("Amoxilin")
-//                    .setSmallIcon(R.drawable.obat)
-//                    .setContentIntent(notificationPendingIntent)
-//                    .setPriority(NotificationCompat.PRIORITY_HIGH)
-//                    .setDefaults(NotificationCompat.DEFAULT_ALL);
-//
-//            //Delivers the notification
-//            mNotifyManager.notify(NOTIFICATION_ID, notifyBuilder.build());
+            reminderAlert.setRepeating(AlarmManager.RTC_WAKEUP, SystemClock.elapsedRealtime(), 1000*60*times, pendingIntent);
+
         }
     }
-
-
-
-
-
-
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
