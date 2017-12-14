@@ -31,6 +31,7 @@ import java.util.Random;
 import java.util.Set;
 
 import reminderobat.android.kelompok5.papbc.com.reminderobat.R;
+import reminderobat.android.kelompok5.papbc.com.reminderobat.ReminderNotificationReceiver;
 import reminderobat.android.kelompok5.papbc.com.reminderobat.model.ReminderModel;
 import reminderobat.android.kelompok5.papbc.com.reminderobat.util.GSONConverter;
 import reminderobat.android.kelompok5.papbc.com.reminderobat.util.Number;
@@ -60,9 +61,9 @@ public class TambahReminderActivity extends AppCompatActivity implements View.On
 
     String mTime;
 
+    // deprecated
     static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     static SecureRandom rnd = new SecureRandom();
-
     private List<ReminderModel> mReminderModelArrayList;
 
 
@@ -168,10 +169,24 @@ public class TambahReminderActivity extends AppCompatActivity implements View.On
             Log.d(TAG_REMINDER_MODEL, "tambahReminder: reminderModel.getJam(): " + reminderModel.getJam());
             Log.d(TAG_REMINDER_MODEL, "tambahReminder: reminderModel.getNamaObat(): " + reminderModel.getNamaObat());
 
+            showNotification(reminderModel);
+
             // save ke shared pref next branch...
             // writeToSharedPref(reminderModel);
 
         }
+    }
+
+    private void showNotification(ReminderModel reminderModel) {
+        ReminderNotificationReceiver notificationReceiver = new ReminderNotificationReceiver();
+
+        notificationReceiver.Notification(
+                reminderModel.getId(),
+                reminderModel.getKeterangan(),
+                reminderModel.getJam(),
+                reminderModel.getNamaObat(),
+                this
+        );
     }
 
 

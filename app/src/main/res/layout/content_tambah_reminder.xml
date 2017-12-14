@@ -79,10 +79,10 @@
                         app:layout_constraintTop_toBottomOf="@id/divider_1">
 
                         <RadioButton
-                            android:checked="true"
                             android:id="@+id/radio_button_obat_1"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
                             android:drawableLeft="@mipmap/ic_launcher"
                             android:text="Nama Obat 1" />
 

@@ -45,13 +45,13 @@ public class ReminderRecycleAdapter extends RecyclerView.Adapter<ReminderRecycle
         String jam = parts[0];
         String menit = parts[1];
 
-        int id=resources.getIdentifier("reminderobat.android.kelompok5.papbc.com.reminderobat:drawable/sun",
+        int id = resources.getIdentifier("reminderobat.android.kelompok5.papbc.com.reminderobat:drawable/sun",
                 null, null);
         int jams = Integer.parseInt(jam);
-        if(jams<18){
+        if (jams < 18) {
             id = resources.getIdentifier("reminderobat.android.kelompok5.papbc.com.reminderobat:drawable/sun",
                     null, null);
-        }else if(jams>=18){
+        } else if (jams >= 18) {
             id = resources.getIdentifier("reminderobat.android.kelompok5.papbc.com.reminderobat:drawable/plus",
                     null, null);
         }
