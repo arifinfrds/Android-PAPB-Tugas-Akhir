@@ -1,5 +1,7 @@
 package reminderobat.android.kelompok5.papbc.com.reminderobat.model;
 
+import reminderobat.android.kelompok5.papbc.com.reminderobat.ui.tambah_reminder.TambahReminderCallback;
+
 /**
  * Created by Firmanda on 12/12/2017.
  */
@@ -36,4 +38,6 @@ public class ReminderModel {
     public String getNamaObat() {
         return namaObat;
     }
+
+
 }

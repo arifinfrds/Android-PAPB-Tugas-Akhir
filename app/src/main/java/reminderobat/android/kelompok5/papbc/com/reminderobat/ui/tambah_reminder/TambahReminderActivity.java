@@ -33,6 +33,9 @@ import java.util.Set;
 import reminderobat.android.kelompok5.papbc.com.reminderobat.R;
 import reminderobat.android.kelompok5.papbc.com.reminderobat.ReminderNotificationReceiver;
 import reminderobat.android.kelompok5.papbc.com.reminderobat.model.ReminderModel;
+import reminderobat.android.kelompok5.papbc.com.reminderobat.ui.daftar.DaftarRecycleAdapter;
+import reminderobat.android.kelompok5.papbc.com.reminderobat.ui.reminder.ReminderFragment;
+import reminderobat.android.kelompok5.papbc.com.reminderobat.ui.reminder.ReminderRecycleAdapter;
 import reminderobat.android.kelompok5.papbc.com.reminderobat.util.GSONConverter;
 import reminderobat.android.kelompok5.papbc.com.reminderobat.util.Number;
 
@@ -109,6 +112,7 @@ public class TambahReminderActivity extends AppCompatActivity implements View.On
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
+
                         if (hourOfDay == 0) {
                             hourOfDay += 12;
                             mTimeFormat = "AM";
@@ -171,11 +175,14 @@ public class TambahReminderActivity extends AppCompatActivity implements View.On
 
             showNotification(reminderModel);
 
+            ReminderFragment.mReminderModel = reminderModel;
+
             // save ke shared pref next branch...
             // writeToSharedPref(reminderModel);
 
         }
     }
+
 
     private void showNotification(ReminderModel reminderModel) {
         ReminderNotificationReceiver notificationReceiver = new ReminderNotificationReceiver();
