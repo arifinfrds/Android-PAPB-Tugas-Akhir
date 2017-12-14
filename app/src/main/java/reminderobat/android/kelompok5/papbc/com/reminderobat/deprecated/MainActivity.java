@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
         private static Button btn_notif;
-        //private static final int NOTIFICATION_ID = 0;
+        private static final int NOTIFICATION_ID = 0;
         private NotificationManager mNotifyManager;
         private ReminderModel reminderModel;
         private int times = Integer.parseInt(reminderModel.getJam());
@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
             btn_notif.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    sendNotification();
+                    //sendNotification();
                 }
             });
 
@@ -160,16 +160,34 @@ public class MainActivity extends AppCompatActivity {
 
         public void sendNotification() {
 
-            Intent notificationIntent = new Intent(getActivity(), ReminderNotificationReceiver.class);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), ReminderNotificationReceiver.NOTIFICATION_ID, notificationIntent,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
+//            Intent notificationIntent = new Intent(getActivity(), ReminderNotificationReceiver.class);
+//            PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), ReminderNotificationReceiver.NOTIFICATION_ID, notificationIntent,
+//                    PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//            AlarmManager reminderAlert = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+//
+////            Calendar times = Calendar.getInstance();
+////            times.set(Calendar.HOUR_OF_DAY, jam);
+//
+//            reminderAlert.setRepeating(AlarmManager.RTC_WAKEUP, SystemClock.elapsedRealtime(), 1000*60*times, pendingIntent);
 
-            AlarmManager reminderAlert = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
-
-//            Calendar times = Calendar.getInstance();
-//            times.set(Calendar.HOUR_OF_DAY, jam);
-
-            reminderAlert.setRepeating(AlarmManager.RTC_WAKEUP, SystemClock.elapsedRealtime(), 1000*60*times, pendingIntent);
+//            Intent notificationIntent = new Intent(getActivity(), MainActivity.class);
+//            PendingIntent notificationPendingIntent = PendingIntent.getActivity
+//                    (getActivity(), NOTIFICATION_ID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//            NotificationCompat.Builder notifyBuilder = new NotificationCompat.Builder(getActivity());
+//            notifyBuilder.setContentTitle(reminderModel.getKeterangan())
+//                    .setContentText(reminderModel.getJam())
+//                    .setSubText(reminderModel.getNamaObat())
+//                    .setSmallIcon(R.drawable.obat)
+//                    .setContentIntent(notificationPendingIntent)
+//                    .setWhen(System.currentTimeMillis())
+//                    .setAutoCancel(true)
+//                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+//                    .setDefaults(NotificationCompat.DEFAULT_ALL);
+//
+//            NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+//            notificationManager.notify(NOTIFICATION_ID, notifyBuilder.build());
 
         }
     }

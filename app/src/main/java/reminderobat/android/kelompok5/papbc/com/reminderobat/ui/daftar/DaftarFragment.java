@@ -47,7 +47,8 @@ public class DaftarFragment extends Fragment {
 
 
         adapter.notifyDataSetChanged();
-       return v;
+
+        return v;
     }
 
 }
