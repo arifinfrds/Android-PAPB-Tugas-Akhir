@@ -24,8 +24,8 @@ public class ReminderNotificationReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Intent notificationIntent = new Intent(context, MainActivity.class);
-           PendingIntent notificationPendingIntent = PendingIntent.getActivity
-                    (context, NOTIFICATION_ID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent notificationPendingIntent = PendingIntent.getActivity
+                (context, NOTIFICATION_ID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder notifyBuilder = new NotificationCompat.Builder(context);
         notifyBuilder.setContentTitle(reminderModel.getKeterangan())
@@ -38,7 +38,7 @@ public class ReminderNotificationReceiver extends BroadcastReceiver {
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setDefaults(NotificationCompat.DEFAULT_ALL);
 
-        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(NOTIFICATION_ID, notifyBuilder.build());
     }
 }

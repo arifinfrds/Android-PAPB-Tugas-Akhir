@@ -10,18 +10,18 @@ modified by arifinfrds
 
 public class ReminderModel {
 
-    String id;
+    int id;
     String keterangan, jam;
     String namaObat;
 
-    public ReminderModel(String id, String keterangan, String jam, String namaObat) {
+    public ReminderModel(int id, String keterangan, String jam, String namaObat) {
         this.id = id;
         this.keterangan = keterangan;
         this.jam = jam;
         this.namaObat = namaObat;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 

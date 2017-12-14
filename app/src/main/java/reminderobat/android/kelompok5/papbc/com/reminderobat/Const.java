@@ -12,6 +12,8 @@ public interface Const {
         String TAG_REMINDER_MODEL = "TAG_REMINDER_MODEL";
 
         String TAG_SHARED_PREF_SAVE = "TAG_SHARED_PREF_SAVE";
+
+        String TAG_CALLBACK = "TAG_CALLBACK";
     }
 
     interface KEY {
