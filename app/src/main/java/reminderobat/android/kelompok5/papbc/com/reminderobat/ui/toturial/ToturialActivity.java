@@ -1,5 +1,6 @@
 package reminderobat.android.kelompok5.papbc.com.reminderobat.ui.toturial;
 
+import android.content.SharedPreferences;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +20,7 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+import reminderobat.android.kelompok5.papbc.com.reminderobat.Const;
 import reminderobat.android.kelompok5.papbc.com.reminderobat.R;
 
 public class ToturialActivity extends AppCompatActivity {
@@ -36,6 +39,8 @@ public class ToturialActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    SharedPreferences mCobaPreferences;
+    Boolean mNotifPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +49,10 @@ public class ToturialActivity extends AppCompatActivity {
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
+        mCobaPreferences = getSharedPreferences(Const.SHARED_PREFERENCES.SHARED_PREF_NAME, MODE_PRIVATE );
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mNotifPreferences = mCobaPreferences.getBoolean("notification", false);
+        Log.d("NOTIFICATION", mNotifPreferences+"");
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = findViewById(R.id.container);
