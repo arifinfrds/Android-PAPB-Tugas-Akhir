@@ -1,8 +1,16 @@
 package reminderobat.android.kelompok5.papbc.com.reminderobat;
 
+import android.app.AlarmManager;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.SystemClock;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -17,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,10 +40,14 @@ public class MainActivity extends AppCompatActivity {
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
+
     /**
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +112,9 @@ public class MainActivity extends AppCompatActivity {
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
+        private static Button btn_notif;
+        //private static final int NOTIFICATION_ID = 0;
+        private NotificationManager mNotifyManager;
 
         public PlaceholderFragment() {
         }
@@ -119,11 +135,56 @@ public class MainActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            mNotifyManager = (NotificationManager) getActivity().getSystemService(NOTIFICATION_SERVICE);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+            btn_notif = (Button) rootView.findViewById(R.id.btn_notif);
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+
+            btn_notif.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sendNotification();
+                }
+            });
+
             return rootView;
         }
+
+        public void sendNotification() {
+
+            Intent notificationIntent = new Intent(getActivity(), ReminderNotificationReceiver.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), ReminderNotificationReceiver.NOTIFICATION_ID, notificationIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+
+            AlarmManager reminderAlert = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+
+            reminderAlert.setRepeating(AlarmManager.RTC_WAKEUP, SystemClock.elapsedRealtime(), 60 * 500, pendingIntent);
+
+            //Sets up the pending intent that is delivered when the notification is clicked
+//            Intent notificationIntent = new Intent(getActivity(), MainActivity.class);
+//            PendingIntent notificationPendingIntent = PendingIntent.getActivity
+//                    (getActivity(), NOTIFICATION_ID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//            //Builds the notification with all of the parameters
+//            NotificationCompat.Builder notifyBuilder = new NotificationCompat.Builder(getActivity())
+//                    .setContentTitle("Waktunya minum Vitamin")
+//                    .setContentText("09.00 AM")
+//                    .setSubText("Amoxilin")
+//                    .setSmallIcon(R.drawable.obat)
+//                    .setContentIntent(notificationPendingIntent)
+//                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+//                    .setDefaults(NotificationCompat.DEFAULT_ALL);
+//
+//            //Delivers the notification
+//            mNotifyManager.notify(NOTIFICATION_ID, notifyBuilder.build());
+        }
     }
+
+
+
+
+
+
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
