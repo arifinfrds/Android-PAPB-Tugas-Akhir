@@ -1,6 +1,7 @@
 package reminderobat.android.kelompok5.papbc.com.reminderobat.ui.reminder;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,11 +9,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
+import reminderobat.android.kelompok5.papbc.com.reminderobat.Const;
 import reminderobat.android.kelompok5.papbc.com.reminderobat.R;
+import reminderobat.android.kelompok5.papbc.com.reminderobat.ReminderNotificationReceiver;
 import reminderobat.android.kelompok5.papbc.com.reminderobat.model.ReminderModel;
+import reminderobat.android.kelompok5.papbc.com.reminderobat.ui.toturial.ToturialActivity;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by Firmanda on 12/12/2017.
@@ -22,6 +29,9 @@ public class ReminderRecycleAdapter extends RecyclerView.Adapter<ReminderRecycle
     Context context;
     List<reminderobat.android.kelompok5.papbc.com.reminderobat.model.ReminderModel> ReminderModel;
     Resources resources;
+
+    SharedPreferences mCobaPreferences;
+    Boolean mNotifPreferences;
 
     public ReminderRecycleAdapter(List<ReminderModel> ReminderModel, Context context, Resources resources) {
         this.ReminderModel = ReminderModel;
@@ -37,11 +47,11 @@ public class ReminderRecycleAdapter extends RecyclerView.Adapter<ReminderRecycle
 
     @Override
     public void onBindViewHolder(ReminderRecycleAdapter.ViewHolder viewHolder, final int i) {
-        ReminderModel ReminderModel1 = ReminderModel.get(i);
+        final ReminderModel ReminderModel1 = ReminderModel.get(i);
         viewHolder.row_item_jam.setText(ReminderModel1.getJam());
         viewHolder.row_item_keterangan.setText(ReminderModel1.getKeterangan());
         String clock = ReminderModel1.getJam();
-        String[] parts = clock.split("\\.");
+        String[] parts = clock.split("\\:");
         String jam = parts[0];
         String menit = parts[1];
 
@@ -60,6 +70,12 @@ public class ReminderRecycleAdapter extends RecyclerView.Adapter<ReminderRecycle
         viewHolder.row_item_hapus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (shared()) {
+                    ReminderNotificationReceiver notificationReceiver = new ReminderNotificationReceiver();
+                    notificationReceiver.Notification(ReminderModel1.getId(), ReminderModel1.getKeterangan(), ReminderModel1.getJam(), ReminderModel1.getNamaObat(), context);
+                } else {
+                    Toast.makeText(context, "Notifikasi tak akan muncul", Toast.LENGTH_SHORT).show();
+                }
                 ReminderModel.remove(i);
                 notifyItemRemoved(i);
                 notifyItemRangeChanged(i, ReminderModel.size());
@@ -94,5 +110,13 @@ public class ReminderRecycleAdapter extends RecyclerView.Adapter<ReminderRecycle
         public void onClick(View v) {
 
         }
+    }
+
+    public boolean shared() {
+        mCobaPreferences = context.getSharedPreferences(Const.SHARED_PREFERENCES.SHARED_PREF_NAME, MODE_PRIVATE);
+
+        mNotifPreferences = mCobaPreferences.getBoolean("notification", false);
+        return mNotifPreferences;
+
     }
 }
