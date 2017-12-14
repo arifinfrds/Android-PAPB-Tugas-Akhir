@@ -14,23 +14,23 @@ import reminderobat.android.kelompok5.papbc.com.reminderobat.model.ReminderModel
  * Created by RizqiAryansa on 12/14/2017.
  */
 
-public class ReminderNotificationReceiver extends BroadcastReceiver {
+public class ReminderNotificationReceiver {
 
-    public static final int NOTIFICATION_ID = 1;
-    private static final String ACTION_CANCEL_NOTIFICATION =
-            "reminderobat.android.kelompok5.papbc.com.reminderobat.ACTION_CANCEL_NOTIFICATION";
-    private ReminderModel reminderModel;
+//      private static final int NOTIFICATION_ID = 1;
+//    private static final String ACTION_CANCEL_NOTIFICATION =
+//            "reminderobat.android.kelompok5.papbc.com.reminderobat.ACTION_CANCEL_NOTIFICATION";
+//    private ReminderModel reminderModel;
 
-    @Override
-    public void onReceive(Context context, Intent intent) {
+    public void Notification(int id, String keterangan, String jam, String namaobat, Context context) {
         Intent notificationIntent = new Intent(context, MainActivity.class);
         PendingIntent notificationPendingIntent = PendingIntent.getActivity
-                (context, NOTIFICATION_ID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                (context, id, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder notifyBuilder = new NotificationCompat.Builder(context);
-        notifyBuilder.setContentTitle(reminderModel.getKeterangan())
-                .setContentText(reminderModel.getJam())
-                .setSubText(reminderModel.getNamaObat())
+        notifyBuilder.setContentTitle(keterangan)
+                .setContentText(jam)
+                .setSubText(namaobat)
                 .setSmallIcon(R.drawable.obat)
                 .setContentIntent(notificationPendingIntent)
                 .setWhen(System.currentTimeMillis())
@@ -39,6 +39,31 @@ public class ReminderNotificationReceiver extends BroadcastReceiver {
                 .setDefaults(NotificationCompat.DEFAULT_ALL);
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(NOTIFICATION_ID, notifyBuilder.build());
+
+        notificationManager.notify(id, notifyBuilder.build());
     }
+
+//    @Override
+//    public void onReceive(Context context, Intent intent) {
+//
+//        Intent notificationIntent = new Intent(context, MainActivity.class);
+//        PendingIntent notificationPendingIntent = PendingIntent.getActivity
+//                (context, NOTIFICATION_ID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//        NotificationCompat.Builder notifyBuilder = new NotificationCompat.Builder(context);
+//        notifyBuilder.setContentTitle(reminderModel.getKeterangan())
+//                .setContentText(reminderModel.getJam())
+//                .setSubText(reminderModel.getNamaObat())
+//                .setSmallIcon(R.drawable.obat)
+//                .setContentIntent(notificationPendingIntent)
+//                .setWhen(System.currentTimeMillis())
+//                .setAutoCancel(true)
+//                .setPriority(NotificationCompat.PRIORITY_HIGH)
+//                .setDefaults(NotificationCompat.DEFAULT_ALL);
+//
+//        NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+//        notificationManager.notify(NOTIFICATION_ID, notifyBuilder.build());
+//
+//
+//    }
 }
