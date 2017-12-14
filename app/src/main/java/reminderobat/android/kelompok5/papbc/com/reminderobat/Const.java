@@ -10,6 +10,18 @@ public interface Const {
         String TAG_RADIO_BUTTON = "TAG_RADIO_BUTTON";
 
         String TAG_REMINDER_MODEL = "TAG_REMINDER_MODEL";
+
+        String TAG_SHARED_PREF_SAVE = "TAG_SHARED_PREF_SAVE";
+    }
+
+    interface KEY {
+
+        // untuk shared preferences
+        String KEY_REMINDER_OBAT_SHARED_PREF = "KEY_REMINDER_OBAT_SHARED_PREF";
+    }
+
+    interface SHARED_PREFERENCES {
+        String SHARED_PREF_NAME = "reminderobat.android.kelompok5.papbc.com.reminderobat";
     }
 
 }
