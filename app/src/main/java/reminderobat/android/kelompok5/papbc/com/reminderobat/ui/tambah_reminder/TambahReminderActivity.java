@@ -1,8 +1,11 @@
 package reminderobat.android.kelompok5.papbc.com.reminderobat.ui.tambah_reminder;
 
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,12 +23,21 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import reminderobat.android.kelompok5.papbc.com.reminderobat.R;
 import reminderobat.android.kelompok5.papbc.com.reminderobat.model.ReminderModel;
+import reminderobat.android.kelompok5.papbc.com.reminderobat.util.GSONConverter;
 
+import static java.security.AccessController.getContext;
+import static reminderobat.android.kelompok5.papbc.com.reminderobat.Const.KEY.KEY_REMINDER_OBAT_SHARED_PREF;
+import static reminderobat.android.kelompok5.papbc.com.reminderobat.Const.SHARED_PREFERENCES.SHARED_PREF_NAME;
 import static reminderobat.android.kelompok5.papbc.com.reminderobat.Const.TAG.TAG_REMINDER_MODEL;
+import static reminderobat.android.kelompok5.papbc.com.reminderobat.Const.TAG.TAG_SHARED_PREF_SAVE;
 
 
 public class TambahReminderActivity extends AppCompatActivity implements View.OnClickListener {
@@ -49,6 +61,8 @@ public class TambahReminderActivity extends AppCompatActivity implements View.On
     static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     static SecureRandom rnd = new SecureRandom();
 
+    private List<ReminderModel> mReminderModelArrayList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +75,8 @@ public class TambahReminderActivity extends AppCompatActivity implements View.On
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+
+        mReminderModelArrayList = new ArrayList<>();
 
         mRadioGroup = findViewById(R.id.radio_group_tambah_reminder);
 
@@ -121,6 +137,7 @@ public class TambahReminderActivity extends AppCompatActivity implements View.On
 
         if (id == R.id.btn_tambah_reminder) {
             tambahReminder();
+            finish();
         }
 
     }
@@ -147,8 +164,53 @@ public class TambahReminderActivity extends AppCompatActivity implements View.On
             Log.d(TAG_REMINDER_MODEL, "tambahReminder: reminderModel.getNamaObat(): " + reminderModel.getNamaObat());
 
             // save ke shared pref next branch...
-
+            writeToSharedPref(reminderModel);
         }
+    }
+
+    private void writeToSharedPref(ReminderModel reminder) {
+
+        // load shared pref list yang sekarang
+//        SharedPreferences sharedPref = getSharedPreferences(
+//                SHARED_PREF_NAME,
+//                Context.MODE_PRIVATE
+//        );
+        // SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+
+        Set<String> defaultValueSetString = new HashSet<>();
+        Set<String> reminderObatSetString = sharedPref.getStringSet(
+                KEY_REMINDER_OBAT_SHARED_PREF,
+                defaultValueSetString
+        );
+
+        Log.d(TAG_SHARED_PREF_SAVE, "writeToSharedPref: reminderObatSetString: " + reminderObatSetString);
+
+        mReminderModelArrayList = GSONConverter.fromSetStringToList(
+                reminderObatSetString,
+                ReminderModel.class
+        );
+
+        Log.d(TAG_SHARED_PREF_SAVE, "writeToSharedPref: mReminderModelArrayList: " + mReminderModelArrayList.size());
+
+        // write to shared pref logic
+        mReminderModelArrayList.add(reminder);
+
+        SharedPreferences sharedPrefSave = getPreferences(Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPrefSave.edit();
+        Set<String> newReminderObatSetString = GSONConverter.fromListToSetString(mReminderModelArrayList);
+
+        editor.putStringSet(
+                KEY_REMINDER_OBAT_SHARED_PREF,
+                newReminderObatSetString
+        );
+
+        boolean isCommited = editor.commit();
+        Log.d(TAG_SHARED_PREF_SAVE, "writeToSharedPref: isCommited: " + isCommited);
+
+        Log.d(TAG_SHARED_PREF_SAVE, "writeToSharedPref: newReminderObatSetString: " + newReminderObatSetString);
     }
 
     public String getNamaObat() {
@@ -182,7 +244,6 @@ public class TambahReminderActivity extends AppCompatActivity implements View.On
         // sembunyikan keyboard
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
-
 
 
 }
