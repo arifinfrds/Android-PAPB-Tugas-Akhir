@@ -1,4 +1,4 @@
-package reminderobat.android.kelompok5.papbc.com.reminderobat;
+package reminderobat.android.kelompok5.papbc.com.reminderobat.util;
 
 /**
  * Created by arifinfrds on 12/14/17.

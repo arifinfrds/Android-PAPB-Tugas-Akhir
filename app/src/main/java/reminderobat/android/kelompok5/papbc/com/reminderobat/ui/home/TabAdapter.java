@@ -1,4 +1,4 @@
-package reminderobat.android.kelompok5.papbc.com.reminderobat.ui;
+package reminderobat.android.kelompok5.papbc.com.reminderobat.ui.home;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

@@ -11,7 +11,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import reminderobat.android.kelompok5.papbc.com.reminderobat.R;
-import reminderobat.android.kelompok5.papbc.com.reminderobat.ui.FragmentActivity;
+import reminderobat.android.kelompok5.papbc.com.reminderobat.ui.home.FragmentActivity;
 
 
 /**

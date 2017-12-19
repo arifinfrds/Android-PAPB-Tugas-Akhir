@@ -13,11 +13,10 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import reminderobat.android.kelompok5.papbc.com.reminderobat.Const;
+import reminderobat.android.kelompok5.papbc.com.reminderobat.util.Const;
 import reminderobat.android.kelompok5.papbc.com.reminderobat.R;
-import reminderobat.android.kelompok5.papbc.com.reminderobat.ReminderNotificationReceiver;
+import reminderobat.android.kelompok5.papbc.com.reminderobat.ui.notification.ReminderNotificationReceiver;
 import reminderobat.android.kelompok5.papbc.com.reminderobat.model.ReminderModel;
-import reminderobat.android.kelompok5.papbc.com.reminderobat.ui.toturial.ToturialActivity;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -41,38 +40,67 @@ public class ReminderRecycleAdapter extends RecyclerView.Adapter<ReminderRecycle
 
     @Override
     public ReminderRecycleAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_item_reminder, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext())
+                .inflate(R.layout.row_item_reminder, viewGroup, false);
         return new ReminderRecycleAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ReminderRecycleAdapter.ViewHolder viewHolder, final int i) {
+
         final ReminderModel ReminderModel1 = ReminderModel.get(i);
+
         viewHolder.row_item_jam.setText(ReminderModel1.getJam());
         viewHolder.row_item_keterangan.setText(ReminderModel1.getKeterangan());
+
         String clock = ReminderModel1.getJam();
+
+        if (clock == null) {
+            // default value
+            clock = "09:00 AM";
+        }
         String[] parts = clock.split("\\:");
         String jam = parts[0];
         String menit = parts[1];
 
-        int id = resources.getIdentifier("reminderobat.android.kelompok5.papbc.com.reminderobat:drawable/sun",
-                null, null);
+        int id = resources.getIdentifier(
+                "reminderobat.android.kelompok5.papbc.com.reminderobat:drawable/sun",
+                null,
+                null
+        );
+
         int jams = Integer.parseInt(jam);
+
         if (jams < 18) {
-            id = resources.getIdentifier("reminderobat.android.kelompok5.papbc.com.reminderobat:drawable/sun",
-                    null, null);
+            id = resources.getIdentifier(
+                    "reminderobat.android.kelompok5.papbc.com.reminderobat:drawable/sun",
+                    null,
+                    null
+            );
         } else if (jams >= 18) {
-            id = resources.getIdentifier("reminderobat.android.kelompok5.papbc.com.reminderobat:drawable/plus",
-                    null, null);
+            id = resources.getIdentifier(
+                    "reminderobat.android.kelompok5.papbc.com.reminderobat:drawable/plus",
+                    null,
+                    null
+            );
         }
+
         viewHolder.row_item_gambar.setImageResource(id);
 
         viewHolder.row_item_hapus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (shared()) {
                     ReminderNotificationReceiver notificationReceiver = new ReminderNotificationReceiver();
-                    notificationReceiver.Notification(ReminderModel1.getId(), ReminderModel1.getKeterangan(), ReminderModel1.getJam(), ReminderModel1.getNamaObat(), context);
+                    notificationReceiver.Notification(
+                            ReminderModel1.getId(),
+                            ReminderModel1.getKeterangan(),
+                            ReminderModel1.getJam(),
+                            ReminderModel1.getNamaObat(),
+                            context
+                    );
+
                 } else {
                     Toast.makeText(context, "Notifikasi tak akan muncul", Toast.LENGTH_SHORT).show();
                 }

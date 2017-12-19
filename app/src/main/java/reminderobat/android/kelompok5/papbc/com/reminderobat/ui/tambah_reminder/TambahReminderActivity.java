@@ -1,11 +1,9 @@
 package reminderobat.android.kelompok5.papbc.com.reminderobat.ui.tambah_reminder;
 
 import android.app.TimePickerDialog;
-import android.content.Context;
-import android.content.SharedPreferences;
+
 import android.os.Bundle;
 
-import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -22,28 +20,17 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import java.security.SecureRandom;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+
 
 import reminderobat.android.kelompok5.papbc.com.reminderobat.R;
-import reminderobat.android.kelompok5.papbc.com.reminderobat.ReminderNotificationReceiver;
+import reminderobat.android.kelompok5.papbc.com.reminderobat.ui.notification.ReminderNotificationReceiver;
 import reminderobat.android.kelompok5.papbc.com.reminderobat.model.ReminderModel;
-import reminderobat.android.kelompok5.papbc.com.reminderobat.ui.daftar.DaftarRecycleAdapter;
 import reminderobat.android.kelompok5.papbc.com.reminderobat.ui.reminder.ReminderFragment;
-import reminderobat.android.kelompok5.papbc.com.reminderobat.ui.reminder.ReminderRecycleAdapter;
-import reminderobat.android.kelompok5.papbc.com.reminderobat.util.GSONConverter;
 import reminderobat.android.kelompok5.papbc.com.reminderobat.util.Number;
 
-import static java.security.AccessController.getContext;
-import static reminderobat.android.kelompok5.papbc.com.reminderobat.Const.KEY.KEY_REMINDER_OBAT_SHARED_PREF;
-import static reminderobat.android.kelompok5.papbc.com.reminderobat.Const.SHARED_PREFERENCES.SHARED_PREF_NAME;
-import static reminderobat.android.kelompok5.papbc.com.reminderobat.Const.TAG.TAG_REMINDER_MODEL;
-import static reminderobat.android.kelompok5.papbc.com.reminderobat.Const.TAG.TAG_SHARED_PREF_SAVE;
+
+import static reminderobat.android.kelompok5.papbc.com.reminderobat.util.Const.TAG.TAG_REMINDER_MODEL;
 
 
 public class TambahReminderActivity extends AppCompatActivity implements View.OnClickListener {
@@ -64,11 +51,6 @@ public class TambahReminderActivity extends AppCompatActivity implements View.On
 
     String mTime;
 
-    // deprecated
-    static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    static SecureRandom rnd = new SecureRandom();
-    private List<ReminderModel> mReminderModelArrayList;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +63,6 @@ public class TambahReminderActivity extends AppCompatActivity implements View.On
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-
-        mReminderModelArrayList = new ArrayList<>();
 
         mRadioGroup = findViewById(R.id.radio_group_tambah_reminder);
 
@@ -106,12 +86,12 @@ public class TambahReminderActivity extends AppCompatActivity implements View.On
         mCalendarHour = mCalendar.get(Calendar.HOUR_OF_DAY);
         mCalendarMinute = mCalendar.get(Calendar.MINUTE);
 
+
         mTimePickerDialog = new TimePickerDialog(
                 TambahReminderActivity.this,
                 new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
 
                         if (hourOfDay == 0) {
                             hourOfDay += 12;
@@ -124,6 +104,7 @@ public class TambahReminderActivity extends AppCompatActivity implements View.On
                         } else {
                             mTimeFormat = "AM";
                         }
+
                         String time = hourOfDay + ":" + minute + " " + mTimeFormat;
                         mTvTime.setText(time);
 
@@ -139,19 +120,16 @@ public class TambahReminderActivity extends AppCompatActivity implements View.On
         int id = v.getId();
 
         if (id == R.id.tv_time_tambah_reminder) {
-            toast("pilih waktu");
             showTimePickerDialog();
         }
 
         if (id == R.id.btn_tambah_reminder) {
             tambahReminder();
-            finish();
         }
 
     }
 
     private void tambahReminder() {
-        toast("tambahReminder()");
 
         String deskripsi = mEtDeskripsi.getText().toString();
 
@@ -163,11 +141,15 @@ public class TambahReminderActivity extends AppCompatActivity implements View.On
             int selectedId = mRadioGroup.getCheckedRadioButtonId();
             mSelectedRadioButton = findViewById(selectedId);
 
-            //int idReminder = Number.getRandomNumberBetween(0, 999999);
             int idReminder = Number.getRandomNumberBetween(0, 999999);
+
+            if (mTime == null) {
+                mTime = "09:00 AM";
+            }
+
             ReminderModel reminderModel = new ReminderModel(idReminder, deskripsi, mTime, getNamaObat());
 
-
+            // untuk debuggingdi logcat
             Log.d(TAG_REMINDER_MODEL, "tambahReminder: reminderModel.getId(): " + reminderModel.getId());
             Log.d(TAG_REMINDER_MODEL, "tambahReminder: reminderModel.getKeterangan(): " + reminderModel.getKeterangan());
             Log.d(TAG_REMINDER_MODEL, "tambahReminder: reminderModel.getJam(): " + reminderModel.getJam());
@@ -175,10 +157,11 @@ public class TambahReminderActivity extends AppCompatActivity implements View.On
 
             showNotification(reminderModel);
 
+            // pindah data object ke ReminderFragment
             ReminderFragment.mReminderModel = reminderModel;
 
-            // save ke shared pref next branch...
-            // writeToSharedPref(reminderModel);
+            finish();
+
 
         }
     }
@@ -196,61 +179,8 @@ public class TambahReminderActivity extends AppCompatActivity implements View.On
         );
     }
 
-
-    private void writeToSharedPref(ReminderModel reminder) {
-
-        // load shared pref list yang sekarang
-//        SharedPreferences sharedPref = getSharedPreferences(
-//                SHARED_PREF_NAME,
-//                Context.MODE_PRIVATE
-//        );
-        // SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-
-        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-
-        Set<String> defaultValueSetString = new HashSet<>();
-        Set<String> reminderObatSetString = sharedPref.getStringSet(
-                KEY_REMINDER_OBAT_SHARED_PREF,
-                defaultValueSetString
-        );
-
-        Log.d(TAG_SHARED_PREF_SAVE, "writeToSharedPref: reminderObatSetString: " + reminderObatSetString);
-
-        mReminderModelArrayList = GSONConverter.fromSetStringToList(
-                reminderObatSetString,
-                ReminderModel.class
-        );
-
-        Log.d(TAG_SHARED_PREF_SAVE, "writeToSharedPref: mReminderModelArrayList: " + mReminderModelArrayList.size());
-
-        // write to shared pref logic
-        mReminderModelArrayList.add(reminder);
-
-        SharedPreferences sharedPrefSave = getPreferences(Context.MODE_PRIVATE);
-
-        SharedPreferences.Editor editor = sharedPrefSave.edit();
-        Set<String> newReminderObatSetString = GSONConverter.fromListToSetString(mReminderModelArrayList);
-
-        editor.putStringSet(
-                KEY_REMINDER_OBAT_SHARED_PREF,
-                newReminderObatSetString
-        );
-
-        boolean isCommited = editor.commit();
-        Log.d(TAG_SHARED_PREF_SAVE, "writeToSharedPref: isCommited: " + isCommited);
-
-        Log.d(TAG_SHARED_PREF_SAVE, "writeToSharedPref: newReminderObatSetString: " + newReminderObatSetString);
-    }
-
     public String getNamaObat() {
         return mSelectedRadioButton.getText().toString();
-    }
-
-    private String getRandomStringId(int len) {
-        StringBuilder sb = new StringBuilder(len);
-        for (int i = 0; i < len; i++)
-            sb.append(AB.charAt(rnd.nextInt(AB.length())));
-        return sb.toString();
     }
 
 

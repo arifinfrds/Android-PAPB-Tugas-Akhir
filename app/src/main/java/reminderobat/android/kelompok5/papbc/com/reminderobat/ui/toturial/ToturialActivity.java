@@ -1,10 +1,7 @@
 package reminderobat.android.kelompok5.papbc.com.reminderobat.ui.toturial;
 
 import android.content.SharedPreferences;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,9 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.TextView;
-
-import reminderobat.android.kelompok5.papbc.com.reminderobat.Const;
+import reminderobat.android.kelompok5.papbc.com.reminderobat.util.Const;
 import reminderobat.android.kelompok5.papbc.com.reminderobat.R;
 
 public class ToturialActivity extends AppCompatActivity {

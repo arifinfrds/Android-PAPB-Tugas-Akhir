@@ -34,7 +34,7 @@ public class DaftarFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-       View v= inflater.inflate(R.layout.fragment_daftar, container, false);
+        View v = inflater.inflate(R.layout.fragment_daftar, container, false);
 
 
         recyclerView = (RecyclerView) v.findViewById(R.id.recycle_view_daftar);
@@ -42,8 +42,8 @@ public class DaftarFragment extends Fragment {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(adapter);
-        daftarModelList.add(new DaftarModel("Amoxsilin","3 x 1 sehari setelah makan"));
-        daftarModelList.add(new DaftarModel("Komix","3 x 1 sehari sebelum makan"));
+        daftarModelList.add(new DaftarModel("Amoxsilin", "3 x 1 sehari setelah makan"));
+        daftarModelList.add(new DaftarModel("Komix", "3 x 1 sehari sebelum makan"));
 
 
         adapter.notifyDataSetChanged();
